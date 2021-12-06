@@ -1,0 +1,21 @@
+.popup__label {
+  display: block;
+  width: 358px;
+  padding: 0;
+  margin: 0 36px 30px;
+  box-sizing: border-box;
+}
+
+.popup__label:last-of-type {
+    margin: 0 36px 48px;
+  }
+
+ @media screen and (min-width: 320px) and (max-width: 1139px) {
+    .popup__label {
+      width: 238px;
+      margin: 0 22px 30px;
+    }
+    .popup__label:last-of-type {
+      margin: 0 22px 45px;
+    }
+  }

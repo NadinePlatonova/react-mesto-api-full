@@ -1,0 +1,9 @@
+.element {
+  width: 100%;
+  max-width: 282px;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+}

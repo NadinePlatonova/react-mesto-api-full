@@ -1,0 +1,5 @@
+.reg-login__form {
+    display: flex;
+    justify-content: column;
+    align-items: center;
+}

@@ -1,0 +1,8 @@
+.reg-login__sign-in {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 15px auto 80px;
+    width: 100%;
+    max-width: 358px;
+}
