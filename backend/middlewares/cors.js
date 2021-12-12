@@ -1,8 +1,8 @@
 const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 
 const allowedCors = [
-  'https://http://platonova.mesto.nomoredomains.rocks',
-  'http://http://platonova.mesto.nomoredomains.rocks/',
+  'https://platonova.mesto.nomoredomains.rocks',
+  'http://platonova.mesto.nomoredomains.rocks/',
   'localhost:3000',
 ];
 

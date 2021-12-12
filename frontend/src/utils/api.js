@@ -7,7 +7,8 @@ class Api {
     getUserInfo() {
         const url = `${this._baseUrl}/users/me`
         return fetch(url, {
-            headers: this._headers
+            headers: this._headers,
+            credentials: 'include',
         })
         .then(this._checkResponseStatus);
     }
@@ -17,6 +18,7 @@ class Api {
         return fetch(url, {
             method: 'PATCH',
             headers: this._headers,
+            credentials: 'include',
             body: JSON.stringify({
                 name: name,
                 about: about
@@ -30,6 +32,7 @@ class Api {
         return fetch(url, {
             method: 'POST',
             headers: this._headers,
+            credentials: 'include',
             body: JSON.stringify({
                 name: name,
                 link: link
@@ -41,7 +44,8 @@ class Api {
     getInitialCards() {
         const url = `${this._baseUrl}/cards`
         return fetch(url, {
-            headers: this._headers
+            headers: this._headers,
+            credentials: 'include',
         })
         .then(this._checkResponseStatus);
     }
@@ -51,6 +55,7 @@ class Api {
         return fetch(url, {
             method: 'PATCH',
             headers: this._headers,
+            credentials: 'include',
             body: JSON.stringify({
                 avatar: avatar
             })
@@ -62,7 +67,8 @@ class Api {
         const url = `${this._baseUrl}/cards/${cardId}`
         return fetch(url, {
             method: 'DELETE',
-            headers: this._headers
+            headers: this._headers,
+            credentials: 'include',
         })
         .then(this._checkResponseStatus);
     }
@@ -71,7 +77,8 @@ class Api {
         const url = `${this._baseUrl}/cards/likes/${cardId}`
         return fetch(url, {
             method: isLiked ? 'DELETE' : 'PUT',
-            headers: this._headers
+            headers: this._headers,
+            credentials: 'include',
         })
         .then(this._checkResponseStatus);
     }
