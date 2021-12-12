@@ -14,6 +14,7 @@ const NotFoundError = require('./errors/not-found-error');
 const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
 const auth = require('./middlewares/auth');
+const cors = require('./middlewares/cors');
 const errorHandler = require('./middlewares/error');
 
 const {
@@ -24,6 +25,8 @@ const {
 const { PORT = 3000 } = process.env;
 
 const app = express();
+
+app.use(cors);
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
