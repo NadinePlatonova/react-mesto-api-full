@@ -1,5 +1,5 @@
 {
-  "name": "express-mesto",
+  "name": "react-mesto-api-full",
   "version": "1.0.0",
   "description": "`/routes` — папка с файлами роутера  \r `/controllers` — папка с файлами контроллеров пользователя и карточки   \r `/models` — папка с файлами описания схем пользователя и карточки",
   "main": "index.js",
@@ -11,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NadinePlatonova/express-mesto.git"
+    "url": "git+https://github.com/NadinePlatonova/react-mesto-api-full.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/NadinePlatonova/express-mesto/issues"
+    "url": "https://github.com/NadinePlatonova/react-mesto-api-full/issues"
   },
-  "homepage": "https://github.com/NadinePlatonova/express-mesto#readme",
+  "homepage": "https://github.com/NadinePlatonova/react-mesto-api-full#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
