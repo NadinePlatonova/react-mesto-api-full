@@ -40,7 +40,7 @@ export const getContent = () => {
         credentials: 'include',
     })
     .then(checkResponseStatus)
-    .then(data => data)
+    // .then(data => data)
 }
 
 function checkResponseStatus(res) {

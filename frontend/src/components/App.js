@@ -50,24 +50,18 @@ function App() {
             console.log(err);
         })
     }, [])
+    // React.useEffect(() => {
+    //     if (!loggedIn) {return}
 
-    React.useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            auth.getContent(token)
-            .then((data) => {
-                if (data) {
-                    setUserEmail(data.data.email);
-                    setLoggedIn(true);
-                    history.push('/');
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-        }
-        // eslint-disable-next-line
-    }, [])
+    //     Promise.all([api.getUserInfo(), api.getInitialCards()])
+    //         .then(([userInfo, cardsInfo]) => {
+    //             setCurrentUser(userInfo);
+    //             setCards(cardsInfo);
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         })
+    // }, [loggedIn]);
 
     function handleCardLike(card) {
         const isLiked = card.likes.some(i => i._id === currentUser._id);
@@ -161,24 +155,6 @@ function App() {
         })
     }
 
-    function handleLogin(email, password) {
-        auth.authorize(email, password)
-        .then((data) => {
-            if (data.token) {
-                setLoggedIn(true);
-                history.push('/');
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-    }
-
-    function handleSignOut() {
-        localStorage.removeItem('token');
-        setLoggedIn(false);
-    }
-
     function onRegister(email, password) {
         auth.register(email, password)
         .then(() => {
@@ -190,6 +166,69 @@ function App() {
             setIsSuccess(false);
         })
         .finally(() => setIsInfoTooltipOpen(true))
+    }
+// переделать
+    // React.useEffect(() => {
+    //     const token = localStorage.getItem('token');
+    //     if (token) {
+    //         auth.getContent(token)
+    //         .then((data) => {
+    //             if (data) {
+    //                 setUserEmail(data.data.email);
+    //                 setLoggedIn(true);
+    //                 history.push('/');
+    //             }
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         })
+    //     }
+    //     // eslint-disable-next-line
+    // }, [])
+    //переделать
+    // function handleLogin(email, password) {
+    //     auth.authorize(email, password)
+    //     .then((data) => {
+    //         if (data.token) {
+    //             setLoggedIn(true);
+    //             history.push('/');
+    //         }
+    //     })
+    //     .catch((err) => {
+    //         console.log(err);
+    //     })
+    // }
+    //ниже новая функция
+    function handleLogin (email, password) {
+        auth.authorize(email, password)
+            .then(() => {
+                checkToken()
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+    //ниже новая функция
+    const checkToken = React.useCallback(() => {
+        auth.getContent()
+            .then(res => {
+                setLoggedIn(res != null)
+                setUserEmail(res.email)
+                history.push('/')
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }, [history]);
+
+    //ниже новая функция
+    React.useEffect(() => {
+        checkToken()
+    }, [checkToken]);
+//переделать надо
+    function handleSignOut() {
+        localStorage.removeItem('token');
+        setLoggedIn(false);
     }
 
   return (
@@ -217,7 +256,10 @@ function App() {
             </Route>
             
             <Route exact path="/sign-in">
-                <Login handleLogin={handleLogin}/>
+                <Login
+                handleLogin={handleLogin}
+                checkToken={checkToken}
+                />
             </Route>
             
         </Switch>
