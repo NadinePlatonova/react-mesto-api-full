@@ -74,7 +74,7 @@ class Api {
     }
 
     putLike(cardId, isLiked) {
-        const url = `${this._baseUrl}/cards/likes/${cardId}`
+        const url = `${this._baseUrl}/cards/${cardId}/likes`
         return fetch(url, {
             method: isLiked ? 'DELETE' : 'PUT',
             headers: this._headers,
