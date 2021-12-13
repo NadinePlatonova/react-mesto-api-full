@@ -22,12 +22,12 @@ export const authorize = (email, password) => {
         body: JSON.stringify({email, password})
     })
     .then(checkResponseStatus)
-    .then((data) => {
-        if (data.token) {
-            localStorage.setItem('token', data.token);
-            return data;
-        }
-    })
+    // .then((data) => {
+    //     if (data.token) {
+    //         localStorage.setItem('token', data.token);
+    //         return data;
+    //     }
+    // })
 }
 
 export const getContent = (token) => {
@@ -35,7 +35,7 @@ export const getContent = (token) => {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            // 'Authorization': `Bearer ${token}`
         },
         credentials: 'include',
     })
