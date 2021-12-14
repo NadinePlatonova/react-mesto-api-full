@@ -1,5 +1,5 @@
-const { JWT_SECRET = 'dev-key' } = process.env;
+const { JWT_SECRET_DEV = 'dev-key' } = process.env;
 
 module.exports = {
-  JWT_SECRET,
+  JWT_SECRET_DEV,
 };
