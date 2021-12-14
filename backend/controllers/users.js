@@ -15,24 +15,24 @@ const login = (req, res, next) => {
     .then((user) => {
       if (!user) throw new UnauthorisedUserError('Пользователь не существует');
 
-      bcrypt.compare(password, user.password, ((error, isValid) => {
-        if (error) throw new ForbiddenError(error);
+      bcrypt.compare(password, user.password)
+        .then((isValid) => {
+          if (!isValid) throw new ForbiddenError('Неправильный логин или пароль');
 
-        if (!isValid) throw new ForbiddenError('Неправильный логин или пароль');
-
-        if (isValid) {
-          const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
-          res
-            .cookie('jwt', token, {
-              maxAge: 3600000 * 24 * 7,
-              httpOnly: true,
-              sameSite: true,
-            })
-            .send({
-              name: user.name, about: user.about, avatar: user.avatar, email: user.email,
-            });
-        }
-      }));
+          if (isValid) {
+            const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
+            res
+              .cookie('jwt', token, {
+                maxAge: 3600000 * 24 * 7,
+                httpOnly: true,
+                sameSite: true,
+              })
+              .send({
+                name: user.name, about: user.about, avatar: user.avatar, email: user.email,
+              });
+          }
+        })
+        .catch(next);
     })
     .catch(next);
 };

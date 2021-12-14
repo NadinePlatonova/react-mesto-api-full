@@ -50,18 +50,6 @@ function App() {
             console.log(err);
         })
     }, [])
-    // React.useEffect(() => {
-    //     if (!loggedIn) {return}
-
-    //     Promise.all([api.getUserInfo(), api.getInitialCards()])
-    //         .then(([userInfo, cardsInfo]) => {
-    //             setCurrentUser(userInfo);
-    //             setCards(cardsInfo);
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //         })
-    // }, [loggedIn]);
 
     function handleCardLike(card) {
         const isLiked = card.likes.some(i => i === currentUser._id);
@@ -193,9 +181,8 @@ function App() {
     React.useEffect(() => {
         checkToken()
     }, [checkToken]);
-//переделать надо
+
     function handleSignOut() {
-        localStorage.removeItem('token');
         setLoggedIn(false);
     }
 

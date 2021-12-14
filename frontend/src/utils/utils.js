@@ -6,8 +6,6 @@ export const submitAddCard = document.querySelector('.popup__submit-button_type_
 export const submitEditAvatar = document.querySelector('.popup__submit-button_type_edit-avatar');
 
 export const formPopupEdit = document.forms['profileForm'];
-// export const nameInput = formPopupEdit.elements.name;
-// export const jobInput = formPopupEdit.elements.role;
 export const nameInput = document.querySelector('#owner-name');
 export const jobInput = document.querySelector('#owner-role');
 
