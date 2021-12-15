@@ -21,14 +21,14 @@ router.get('/users', getUsers);
 router.get('/users/me', getUser);
 router.patch('/users/me', celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30),
-  }).unknown(true),
+    name: Joi.string().min(2).max(30).required(),
+    about: Joi.string().min(2).max(30).required(),
+  }),
 }), updateUser);
 router.patch('/users/me/avatar', celebrate({
   body: Joi.object().keys({
     avatar: Joi.string().required().custom(urlValidation),
-  }).unknown(true),
+  }),
 }), updateAvatar);
 
 module.exports = router;

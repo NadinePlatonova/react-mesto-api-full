@@ -7,7 +7,6 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 const { JWT_SECRET_DEV } = require('../config');
 
 const NotFoundError = require('../errors/not-found-error');
-const ForbiddenError = require('../errors/forbidden-error');
 const UnauthorisedUserError = require('../errors/unauthorised-user-error');
 const ConflictError = require('../errors/conflict-error');
 
@@ -20,7 +19,7 @@ const login = (req, res, next) => {
 
       bcrypt.compare(password, user.password)
         .then((isValid) => {
-          if (!isValid) throw new ForbiddenError('Неправильный логин или пароль');
+          if (!isValid) throw new UnauthorisedUserError('Неправильный логин или пароль');
 
           if (isValid) {
             const token = jwt.sign(
@@ -53,15 +52,9 @@ const getUsers = (req, res, next) => {
 const getUser = (req, res, next) => {
   const id = req.user._id;
   User.findById(id)
-    .orFail(new Error('NotValidId'))
+    .orFail(() => new NotFoundError('Пользователь с указанным id не существует'))
     .then((user) => res.send(user))
-    .catch((err) => {
-      if (err.message === 'NotValidId') {
-        next(new NotFoundError('Пользователь с указанным id не существует'));
-      } else {
-        next(err);
-      }
-    });
+    .catch(next);
 };
 
 const createUser = (req, res, next) => {
@@ -77,7 +70,7 @@ const createUser = (req, res, next) => {
     }))
     .catch((err) => {
       if (err.name === 'MongoError' && err.code === 11000) {
-        throw new ConflictError('Пользователь с таким email уже существует');
+        next(new ConflictError('Пользователь с таким email уже существует'));
       } else {
         next(err);
       }
@@ -111,15 +104,9 @@ const updateAvatar = (req, res, next) => {
     avatar,
     { new: true, runValidators: true },
   )
-    .orFail(new Error('NotValidId'))
+    .orFail(() => new NotFoundError('Пользователь с указанным id не существует'))
     .then((user) => res.send(user))
-    .catch((err) => {
-      if (err.message === 'NotValidId') {
-        next(new NotFoundError('Пользователь с указанным id не существует'));
-      } else {
-        next(err);
-      }
-    });
+    .catch(next);
 };
 
 module.exports = {
