@@ -92,7 +92,7 @@ class Api {
 }
 
 export const api = new Api({
-    baseUrl: 'http://api.platonova.mesto.nomoredomains.rocks',
+    baseUrl: 'https://api.platonova.mesto.nomoredomains.rocks',
     headers: {
         'Content-Type': 'application/json'
     },
